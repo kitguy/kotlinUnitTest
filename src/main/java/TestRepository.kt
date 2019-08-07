@@ -1,6 +1,3 @@
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Repository
-
 open class TestRepository {
 
     open fun getIntegerList(): Collection<Int> {
