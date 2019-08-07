@@ -9,7 +9,7 @@ class StatusService(private val testRepository: TestRepository, private val nega
         if (myInt > 0) {
             testRepository.saveInt(myInt)
         } else if (myInt == 0) {
-            throw CannotBeZeroException("Cannot be zero")
+//            throw CannotBeZeroException("Cannot be zero")
         } else {
             negativoService.handleNegative(myInt)
         }

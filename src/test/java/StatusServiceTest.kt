@@ -5,10 +5,10 @@ import org.junit.Before
 
 class StatusServiceTest {
 
-    private lateinit var service: StatusService
-    private lateinit var testRepoMock: TestRepository
+    lateinit var service: StatusService
+    lateinit var testRepoMock: TestRepository
 
-    private lateinit var negativeServiceMock: NegativeService
+    lateinit var negativeServiceMock: NegativeService
 
     @Before
     fun setUp() {
@@ -18,7 +18,25 @@ class StatusServiceTest {
     }
 
     @Test
-    fun `"savePositivesHandleNegatives" `() {
+    fun `"savePositivesHandleNegatives" saves in repository if positive number`() {
+        testRepoMock.stub { on { getInteger() } doReturn 1 }
+
+        service.savePositivesHandleNegatives()
+
+        verify(testRepoMock).saveInt(eq(1))
+    }
+
+    @Test
+    fun `"savePositivesHandleNegatives" delegates to negativeService if negative number`() {
+    }
+
+    @Test(expected = CannotBeZeroException::class)
+    fun `"savePositivesHandleNegatives" throws CannotBeZeroException if zero`() {
+        testRepoMock.stub {
+            on { getInteger() } doReturn 0
+        }
+
+        service.savePositivesHandleNegatives()
     }
 
     @Test
